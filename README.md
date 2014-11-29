@@ -66,7 +66,9 @@ t,x = rk4f(f, x0, t0, h, n);
 
 This performs 100,000 iterations of the equations defined by `f`.
 
+Here's `x[1,:]` as a function of time:
 ![x(t) solution](doc/plots/sho_x.png)
+Here's the phase space plot:
 ![phase solution](doc/plots/sho_phase.png)
 
 _Plots made with the awesome [Gadfly](https://github.com/dcjones/Gadfly.jl) package._
