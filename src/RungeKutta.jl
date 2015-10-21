@@ -4,20 +4,20 @@ module RungeKutta
 # Currently only the fourth order fixed width version is implemented.
 
 # Each of these functions defines the constants for the Runge-Kutta iteration.
-k1{T<:FloatingPoint}(f::Array{Function,1}, x::Array{T,1},
-    t::FloatingPoint, h::FloatingPoint) =
+k1{T<:AbstractFloat}(f::Array{Function,1}, x::Array{T,1},
+    t::AbstractFloat, h::AbstractFloat) =
     map(fe -> fe(t,x), f);
 
-k2{T<:FloatingPoint}(f::Array{Function,1}, x::Array{T,1}, t::FloatingPoint,
-    h::FloatingPoint, k1val::Array{T,1}) =
+k2{T<:AbstractFloat}(f::Array{Function,1}, x::Array{T,1}, t::AbstractFloat,
+    h::AbstractFloat, k1val::Array{T,1}) =
     map(fe -> fe(t + h/2, x + (0.5*h).*k1val), f);
 
-k3{T<:FloatingPoint}(f::Array{Function,1}, x::Array{T,1}, t::FloatingPoint,
-    h::FloatingPoint, k2val::Array{T,1}) =
+k3{T<:AbstractFloat}(f::Array{Function,1}, x::Array{T,1}, t::AbstractFloat,
+    h::AbstractFloat, k2val::Array{T,1}) =
     map(fe -> fe(t + h/2, x + (0.5*h).*k2val), f);
 
-k4{T<:FloatingPoint}(f::Array{Function,1}, x::Array{T,1}, t::FloatingPoint,
-    h::FloatingPoint, k3val::Array{T,1}) =
+k4{T<:AbstractFloat}(f::Array{Function,1}, x::Array{T,1}, t::AbstractFloat,
+    h::AbstractFloat, k3val::Array{T,1}) =
    map(fe -> fe(t + h, x + h.*k3val), f);
 
 # Computes the value of the next point in the Runge-Kutta iteration.
@@ -29,8 +29,8 @@ k4{T<:FloatingPoint}(f::Array{Function,1}, x::Array{T,1}, t::FloatingPoint,
 #   h: The step size.
 #
 # Returns: The next point in the solution.
-function nextPoint{T<:FloatingPoint}(f::Array{Function,1}, x::Array{T,1},
-    t::FloatingPoint, h::FloatingPoint)
+function nextPoint{T<:AbstractFloat}(f::Array{Function,1}, x::Array{T,1},
+    t::AbstractFloat, h::AbstractFloat)
 
     #Pre-calculate the constants.
     k1val = k1(f, x, t, h);
@@ -58,8 +58,8 @@ end #Close nextPoint.
 #   ArgumentError: If n is not greater than zero.
 #
 # Returns: The vector of times, and the vector of points produced by the solver.
-function rk4f{T<:FloatingPoint}(f::Array{Function,1}, x0::Array{T,1},
-    t0::FloatingPoint, h::FloatingPoint, n::Integer)
+function rk4f{T<:AbstractFloat}(f::Array{Function,1}, x0::Array{T,1},
+    t0::AbstractFloat, h::AbstractFloat, n::Integer)
 
     #Validate that the lengths of f and x0 are the same.
     if length(f) != length(x0)

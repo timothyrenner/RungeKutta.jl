@@ -2,6 +2,8 @@
 
 A basic implementation of the Runge-Kutta ODE solver for systems of first order differential equations.
 
+***NOTE:*** Requires Julia 0.4.
+
 ## Setup
 
 There are no dependencies, just install with
